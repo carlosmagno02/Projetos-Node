@@ -1,0 +1,50 @@
+<%- include('../../partials/head.ejs') %>
+    <%- include('../../partials/navbar.ejs') %>
+        <div class="container">
+            <br>
+            <div class="card">
+                <div class="card-header">
+                    <h2>Atualizar Artigo</h2>
+                </div>
+                <div class="card-body">
+                    <form method="post" action="/articles/update">
+                        <input class="form-control" value="<%-article.title%>" type="text" name="title"
+                            placeholder="Defina o titulo do artigo">
+                        <br>
+                        <textarea name="body" placeholder="Escreva o artigo aqui" id="article"
+                            class="form-control resize-none">
+                            <%-article.body%>
+                        </textarea>
+                        <br>
+                        <select name="category" class="form-control" id="">
+                            <%categories.forEach((category)=> {%>
+                                <%if(category.id==article.categoryId){%>
+                                    <option value="<%=category.id%>" selected>
+                                        <%=category.title%>
+                                    </option>
+                                    <%}else{%>
+                                        <option value="<%=category.id%>">
+                                            <%=category.title%>
+                                        </option>
+                                        <%}%>
+                                            <%})%>
+                        </select>
+                        <input type="hidden" name="id" value="<%- article.id%>">
+                        <br>
+                        <button class="btn btn-success">Atualizar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <script src="/tinymce/tinymce.min.js"></script>
+        <script>
+            tinymce.init({
+                selector: "#article",
+                language: "pt_BR",
+                plugins: 'advlist autolink link image lists print preview hr searchreplace wordcount fullscreen insertdatetime media save table paste emoticons'
+                // plugins: 'wordcount'
+            })
+        </script>
+
+        <%- include('../../partials/footer.ejs') %>
